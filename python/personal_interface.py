@@ -1,38 +1,92 @@
 import os
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import simpledialog
 import pandas as pd
+from csv_functions import save_data
 
-def cargar_archivo(nombre_archivo):
-    # Esta función se activará al hacer clic en un botón de archivo
-    df = pd.read_csv(nombre_archivo)
-    # Aquí puedes agregar el código para trabajar con el archivo cargado, por ejemplo:
-    print("Archivo cargado con éxito:", nombre_archivo)
-    print(df)
+folder_path = "D:\\OneDrive\\URV\\5º Curso\\TFG BrainLink\\BrainLink\\trainingData"
 
-def guardar_datos(datos):
-    # Esta función se activará al hacer clic en el botón de guardar
-    nombre_archivo = filedialog.asksaveasfilename(defaultextension=".csv", filetypes=[("CSV files", "*.csv")])
-    if nombre_archivo:
-        # Aquí puedes agregar el código para guardar los datos en el archivo seleccionado
-        print("Datos guardados en:", nombre_archivo)
+# Crear ventana principal
+ventana = tk.Tk()
+ventana.title("Selector de archivos CSV")
+ventana.geometry("400x300")
 
-def crear_ventana():
-    # Crear ventana principal
-    ventana = tk.Tk()
-    ventana.title("Selector de archivos CSV")
+def actualizar_botones(data):
+    # Limpiar los botones anteriores
+    for widget in ventana.winfo_children():
+        widget.destroy()
 
     # Obtener lista de archivos CSV en la carpeta deseada
-    ruta_carpeta = "D:\OneDrive\URV\5º Curso\TFG BrainLink\BrainLink\trainingData" 
-    archivos_csv = [archivo for archivo in os.listdir(ruta_carpeta) if archivo.endswith('.csv')]
+    archivos_csv = [archivo for archivo in os.listdir(folder_path) if archivo.endswith('.csv')]
 
     # Crear botones para cada archivo CSV
-    for nombre_archivo in archivos_csv:
-        btn_cargar = tk.Button(ventana, text=nombre_archivo, command=lambda archivo=nombre_archivo: cargar_archivo(os.path.join(ruta_carpeta, archivo)))
+    for file_name in archivos_csv:
+        btn_cargar = tk.Button(ventana, text=file_name, command=lambda archivo=file_name: cargar_archivo(file_name, data), height=2, width=20)
         btn_cargar.pack()
 
-    # Botón para guardar datos
-    btn_guardar = tk.Button(ventana, text="Guardar datos", command=lambda: guardar_datos("datos_a_guardar"))
-    btn_guardar.pack()
+    # Contenedor para los botones inferior
+    frame_botones = tk.Frame(ventana)
+    frame_botones.pack(side="bottom", fill="x")
+
+    # Botón para crear un nuevo perfil
+    btn_nuevoPerfil = tk.Button(frame_botones, text="Nuevo perfil", command=lambda: create_new_profil(data), height=2, width=20)
+    btn_nuevoPerfil.pack(side="left", padx=5, pady=5)  # Alinear botón a la izquierda y agregar espacio
+
+    # Botón para salir
+    btn_salir = tk.Button(frame_botones, text="Salir", command=ventana.quit, height=2, width=20)
+    btn_salir.pack(side="right", padx=5, pady=5)  # Alinear botón a la derecha y agregar espacio
+    
+
+def cargar_archivo(file_name, data):
+    
+    # Añadir más adelante un filtrado de los datos
+    if data:
+
+        print ("**Últimos archivos guardados en el fichero: " + file_name+"**")
+        ruta_completa = os.path.join(folder_path, file_name)
+
+        save_data(folder_path, file_name, data)
+
+        # Esta función se activará al hacer clic en un botón de archivo
+        df = pd.read_csv(ruta_completa)
+        # Aquí puedes agregar el código para trabajar con el archivo cargado, por ejemplo:
+        print("Archivo cargado con éxito:", file_name)
+        print(df)
+
+def create_new_profil(data):
+    # Esta función se activará al hacer clic en el botón de "nuevo perfil"
+
+    # Mostrar ventana emergente para que el usuario introduzca un nuevo nombre de perfil
+    new_profil = simpledialog.askstring("Nuevo Perfil", "Introduce el nombre del nuevo perfil:")
+    if new_profil:
+        print("Nuevo perfil:", new_profil)
+
+        cargar_archivo(new_profil+".csv", data)
+
+        # Actualizar los botones después de agregar un nuevo perfil
+        actualizar_botones(data)
+
+
+def crear_ventana(data):
+
+    # Obtener lista de archivos CSV en la carpeta deseada
+    archivos_csv = [archivo for archivo in os.listdir(folder_path) if archivo.endswith('.csv')]
+
+    # Crear botones para cada archivo CSV
+    for file_name in archivos_csv:
+        btn_cargar = tk.Button(ventana, text=file_name, command=lambda archivo=file_name: cargar_archivo(file_name, data), height=2, width=20)
+        btn_cargar.pack()
+
+    # Contenedor para los botones inferior
+    frame_botones = tk.Frame(ventana)
+    frame_botones.pack(side="bottom", fill="x")
+
+    # Botón para crear un nuevo perfil
+    btn_nuevoPerfil = tk.Button(frame_botones, text="Nuevo perfil", command=lambda: create_new_profil(data), height=2, width=20)
+    btn_nuevoPerfil.pack(side="left", padx=5, pady=5)  # Alinear botón a la izquierda y agregar espacio
+
+    # Botón para salir
+    btn_salir = tk.Button(frame_botones, text="Salir", command=ventana.quit, height=2, width=20)
+    btn_salir.pack(side="right", padx=5, pady=5)  # Alinear botón a la derecha y agregar espacio
 
     ventana.mainloop()
