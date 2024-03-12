@@ -8,8 +8,8 @@ folder_path = "D:\\OneDrive\\URV\\5º Curso\\TFG BrainLink\\BrainLink\\trainingD
 
 # Crear ventana principal
 ventana = tk.Tk()
-ventana.title("Selector de archivos CSV")
-ventana.geometry("400x300")
+ventana.title("Selector usuario")
+ventana.geometry("500x400")
 
 def actualizar_botones(data):
     # Limpiar los botones anteriores
@@ -21,20 +21,22 @@ def actualizar_botones(data):
 
     # Crear botones para cada archivo CSV
     for file_name in archivos_csv:
-        btn_cargar = tk.Button(ventana, text=file_name, command=lambda archivo=file_name: cargar_archivo(file_name, data), height=2, width=20)
+        name=file_name.replace(".csv", "")
+        btn_cargar = tk.Button(ventana, text=name, command=lambda archivo=file_name: cargar_archivo(file_name, data), height=2, width=20)
         btn_cargar.pack()
 
     # Contenedor para los botones inferior
-    frame_botones = tk.Frame(ventana)
-    frame_botones.pack(side="bottom", fill="x")
+    frame_inferior = tk.Frame(ventana)
+    frame_inferior.pack(side="bottom", fill="x")
 
     # Botón para crear un nuevo perfil
-    btn_nuevoPerfil = tk.Button(frame_botones, text="Nuevo perfil", command=lambda: create_new_profil(data), height=2, width=20)
+    btn_nuevoPerfil = tk.Button(frame_inferior, text="Nuevo perfil", command=lambda: create_new_profil(data), height=2, width=20)
     btn_nuevoPerfil.pack(side="left", padx=5, pady=5)  # Alinear botón a la izquierda y agregar espacio
 
     # Botón para salir
-    btn_salir = tk.Button(frame_botones, text="Salir", command=ventana.quit, height=2, width=20)
+    btn_salir = tk.Button(frame_inferior, text="Salir", command=ventana.quit, height=2, width=20)
     btn_salir.pack(side="right", padx=5, pady=5)  # Alinear botón a la derecha y agregar espacio
+
     
 
 def cargar_archivo(file_name, data):
@@ -49,9 +51,14 @@ def cargar_archivo(file_name, data):
 
         # Esta función se activará al hacer clic en un botón de archivo
         df = pd.read_csv(ruta_completa)
+
         # Aquí puedes agregar el código para trabajar con el archivo cargado, por ejemplo:
         print("Archivo cargado con éxito:", file_name)
         print(df)
+    
+        # Cerrar la ventana después de cargar el archivo
+        ventana.destroy()
+
 
 def create_new_profil(data):
     # Esta función se activará al hacer clic en el botón de "nuevo perfil"
@@ -67,26 +74,23 @@ def create_new_profil(data):
         actualizar_botones(data)
 
 
-def crear_ventana(data):
+def user_window(data):
 
-    # Obtener lista de archivos CSV en la carpeta deseada
-    archivos_csv = [archivo for archivo in os.listdir(folder_path) if archivo.endswith('.csv')]
+    selected_user = None  # Variable para almacenar el nombre del usuario seleccionado
 
-    # Crear botones para cada archivo CSV
-    for file_name in archivos_csv:
-        btn_cargar = tk.Button(ventana, text=file_name, command=lambda archivo=file_name: cargar_archivo(file_name, data), height=2, width=20)
-        btn_cargar.pack()
+    def on_button_click(user_name):
+        nonlocal selected_user
+        selected_user = user_name
+        ventana.destroy()
 
-    # Contenedor para los botones inferior
-    frame_botones = tk.Frame(ventana)
-    frame_botones.pack(side="bottom", fill="x")
 
-    # Botón para crear un nuevo perfil
-    btn_nuevoPerfil = tk.Button(frame_botones, text="Nuevo perfil", command=lambda: create_new_profil(data), height=2, width=20)
-    btn_nuevoPerfil.pack(side="left", padx=5, pady=5)  # Alinear botón a la izquierda y agregar espacio
+    # Etiqueta para solicitar el nombre del usuario
+    lbl_usuario = tk.Label(ventana, text="¿Qué usuario está trabajando?", font=("Arial", 12))
+    lbl_usuario.pack(pady=10)
 
-    # Botón para salir
-    btn_salir = tk.Button(frame_botones, text="Salir", command=ventana.quit, height=2, width=20)
-    btn_salir.pack(side="right", padx=5, pady=5)  # Alinear botón a la derecha y agregar espacio
+    # Llamar a la función para actualizar los botones después de agregar un nuevo perfil
+    actualizar_botones(data)
 
     ventana.mainloop()
+
+    return selected_user

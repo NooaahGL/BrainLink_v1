@@ -18,6 +18,9 @@ while True:
 
      Signal strength ranges from 0 - 200. Counterintuitively, 0 means the unit has connected successfully, 
      and 200 means there is no signal.s
+
+     IMPORTANTE: descartar siempre los primeros 3 valores de la lectura y tomarlos como calibrado
+     Además, filtrar el rango de la señal
     """
     try:
         # Leer una línea de datos desde el puerto serie
@@ -43,7 +46,7 @@ while True:
         save_data(folder_path, file_name, data_list)
 
         print("-------CREACIÓN DE LA INTERFAZ-------")
-        personal_interface.crear_ventana(data_list)
+        selected_user = personal_interface.user_window(data_list)
         break
 
 
