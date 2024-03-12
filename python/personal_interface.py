@@ -22,7 +22,7 @@ def actualizar_botones(data):
     # Crear botones para cada archivo CSV
     for file_name in archivos_csv:
         name=file_name.replace(".csv", "")
-        btn_cargar = tk.Button(ventana, text=name, command=lambda archivo=file_name: cargar_archivo(file_name, data), height=2, width=20)
+        btn_cargar = tk.Button(ventana, text=name, command=lambda archivo=file_name: on_button_click(file_name, data), height=2, width=20)
         btn_cargar.pack()
 
     # Contenedor para los botones inferior
@@ -55,10 +55,6 @@ def cargar_archivo(file_name, data):
         # Aquí puedes agregar el código para trabajar con el archivo cargado, por ejemplo:
         print("Archivo cargado con éxito:", file_name)
         print(df)
-    
-        # Cerrar la ventana después de cargar el archivo
-        ventana.destroy()
-
 
 def create_new_profil(data):
     # Esta función se activará al hacer clic en el botón de "nuevo perfil"
@@ -73,15 +69,14 @@ def create_new_profil(data):
         # Actualizar los botones después de agregar un nuevo perfil
         actualizar_botones(data)
 
+def on_button_click(file_name, data):
+    cargar_archivo(file_name, data)
+    selected_user = file_name.replace(".csv", "")
+    return selected_user
 
 def user_window(data):
 
-    selected_user = None  # Variable para almacenar el nombre del usuario seleccionado
-
-    def on_button_click(user_name):
-        nonlocal selected_user
-        selected_user = user_name
-        ventana.destroy()
+    user_var = tk.StringVar(value="")  # Variable para almacenar el nombre del usuario seleccionado
 
 
     # Etiqueta para solicitar el nombre del usuario
@@ -89,8 +84,11 @@ def user_window(data):
     lbl_usuario.pack(pady=10)
 
     # Llamar a la función para actualizar los botones después de agregar un nuevo perfil
-    actualizar_botones(data)
+    selected_user = actualizar_botones(data)
+
+    # Asignar el usuario seleccionado a user_var
+    user_var.set(selected_user)
 
     ventana.mainloop()
 
-    return selected_user
+    return user_var.get()

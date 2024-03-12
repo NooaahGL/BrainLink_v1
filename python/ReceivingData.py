@@ -45,8 +45,9 @@ while True:
         file_name =  "data\\"+ datetime.now().strftime('%Y_%m_%d') + ".csv"
         save_data(folder_path, file_name, data_list)
 
-        print("-------CREACIÓN DE LA INTERFAZ-------")
+        print("-------CREACIÓN DE LA INTERFAZ DE USUARIO-------")
         selected_user = personal_interface.user_window(data_list)
+        print("Usuario seleccionado: " +selected_user)
         break
 
 

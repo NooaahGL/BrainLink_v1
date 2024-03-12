@@ -22,6 +22,7 @@ def actualizar_interfaz(data):
     pass  # Reemplaza esto con el código real para actualizar la interfaz gráfica
 
 def recibir_datos():
+    
     while True:
         """
         "signal strength, attention, meditation, delta, theta, low alpha, high alpha, low beta, high beta, low gamma, high gamma"
@@ -55,14 +56,12 @@ def recibir_datos():
             print("Puerto serie cerrado")
 
 print("-------Selección usuario-------")
-selected_user = personal_interface.user_window()
-
+selected_user = personal_interface.user_window(data_list)
 
 # Crear un hilo para recibir los datos en segundo plano
 hilo_recepcion = threading.Thread(target=recibir_datos)
 hilo_recepcion.daemon = True  # El hilo se detendrá cuando se cierre el programa principal
 hilo_recepcion.start()
-
 
 print("-------Selección tipo de datos-------")
 training_interface.dataType_window()
