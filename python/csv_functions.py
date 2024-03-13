@@ -46,8 +46,8 @@ def save_data(folder_path, file_name, data_list):
     #print("Ruta en save Data: " + ruta_completa)
     verify_and_create(ruta_completa, file_name)
     
-
-    with open(ruta_completa, 'a', newline='') as archivo_csv: # Modificado para abrir en modo de agregar ('a')
-        escritor_csv = csv.writer(archivo_csv)
-        for row in data_list:
-            escritor_csv.writerow(row.split(','))  
+    if data_list:
+        with open(ruta_completa, 'a', newline='') as archivo_csv: # Modificado para abrir en modo de agregar ('a')
+            escritor_csv = csv.writer(archivo_csv)
+            for row in data_list:
+                escritor_csv.writerow(row.split(','))  

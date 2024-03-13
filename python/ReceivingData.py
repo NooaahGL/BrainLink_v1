@@ -4,6 +4,7 @@ from datetime import datetime
 from csv_functions import show_data, save_data
 import personal_interface
 
+
 # Configurar el puerto serie
 ser = serial.Serial('COM5', 9600)  # Asegúrate de reemplazar 'COM4' con el puerto correcto
 
@@ -46,7 +47,7 @@ while True:
         save_data(folder_path, file_name, data_list)
 
         print("-------CREACIÓN DE LA INTERFAZ DE USUARIO-------")
-        selected_user = personal_interface.user_window(data_list)
+        selected_user = personal_interface.user_window()
         print("Usuario seleccionado: " +selected_user)
         break
 
