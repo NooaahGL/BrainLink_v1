@@ -11,7 +11,7 @@ ventana = tk.Tk()
 ventana.title("Selector usuario")
 ventana.geometry("500x400")
 
-def actualizar_botones(data):
+def DI_actualizar_botones(data):
     # Limpiar los botones anteriores
     for widget in ventana.winfo_children():
         widget.destroy()
@@ -22,7 +22,7 @@ def actualizar_botones(data):
     # Crear botones para cada archivo CSV
     for file_name in archivos_csv:
         name=file_name.replace(".csv", "")
-        btn_cargar = tk.Button(ventana, text=name, command=lambda archivo=file_name: cargar_archivo(file_name, data), height=2, width=20)
+        btn_cargar = tk.Button(ventana, text=name, command=lambda archivo=file_name: DI_cargar_archivo(file_name, data), height=2, width=20)
         btn_cargar.pack()
 
     # Contenedor para los botones inferior
@@ -30,7 +30,7 @@ def actualizar_botones(data):
     frame_inferior.pack(side="bottom", fill="x")
 
     # Botón para crear un nuevo perfil
-    btn_nuevoPerfil = tk.Button(frame_inferior, text="Nuevo perfil", command=lambda: create_new_profil(data), height=2, width=20)
+    btn_nuevoPerfil = tk.Button(frame_inferior, text="Nuevo perfil", command=lambda: DI_create_new_profil(data), height=2, width=20)
     btn_nuevoPerfil.pack(side="left", padx=5, pady=5)  # Alinear botón a la izquierda y agregar espacio
 
     # Botón para salir
@@ -39,7 +39,7 @@ def actualizar_botones(data):
 
     
 
-def cargar_archivo(file_name, data):
+def DI_cargar_archivo(file_name, data):
     
     # Añadir más adelante un filtrado de los datos
     if data:
@@ -56,7 +56,7 @@ def cargar_archivo(file_name, data):
         print("Archivo cargado con éxito:", file_name)
         print(df)
 
-def create_new_profil(data):
+def DI_create_new_profil(data):
     # Esta función se activará al hacer clic en el botón de "nuevo perfil"
 
     # Mostrar ventana emergente para que el usuario introduzca un nuevo nombre de perfil
@@ -64,10 +64,10 @@ def create_new_profil(data):
     if new_profil:
         print("Nuevo perfil:", new_profil)
 
-        cargar_archivo(new_profil+".csv", data)
+        DI_cargar_archivo(new_profil+".csv", data)
 
         # Actualizar los botones después de agregar un nuevo perfil
-        actualizar_botones(data)
+        DI_actualizar_botones(data)
 
 
 def saveData_window(data):
@@ -77,7 +77,7 @@ def saveData_window(data):
     lbl_usuario.pack(pady=10)
 
     # Llamar a la función para actualizar los botones después de agregar un nuevo perfil
-    actualizar_botones(data)
+    DI_actualizar_botones(data)
 
     ventana.mainloop()
 

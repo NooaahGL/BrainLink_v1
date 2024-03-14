@@ -2,7 +2,7 @@ import serial
 from datetime import datetime
 from csv_functions import save_data
 
-import python.interfaces.personal_interface as personal_interface
+import interfaces.user_interface as user_interface
 
 
 # Configurar el puerto serie
@@ -47,7 +47,7 @@ while True:
         save_data(folder_path, file_name, data_list)
 
         print("-------CREACIÓN DE LA INTERFAZ DE USUARIO-------")
-        selected_user = personal_interface.user_window()
+        selected_user = user_interface.user_window()
         print("Usuario seleccionado: " +selected_user)
         break
 
