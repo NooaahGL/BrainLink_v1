@@ -34,11 +34,12 @@ def process_data(array):
 
         # Seleccionar los elementos del 1 al 3 [timestamp, attention, meditation, delta]
         calibrated_values = array[1:4]
-        calibrated_values = np.append(timestamp,calibrated_values)
+        
+        #dataType = data_window.data_type
+        calibrated_values = np.append([timestamp, data_window.data_type], calibrated_values)
+
         print("Datos procesados:", calibrated_values)
         
-        print("DataType:" , data_window.getDataType())
-
         procesed_data.append(calibrated_values)
 
 
