@@ -1,9 +1,8 @@
-import tkinter as tk
 import threading
-
 import serial
-import training_interface
-import personal_interface
+
+import python.interfaces.training_interface as training_interface
+import python.interfaces.personal_interface as personal_interface
 
 # Configurar el puerto serie
 ser = serial.Serial('COM5', 9600)  # Asegúrate de reemplazar 'COM5' con el puerto correcto

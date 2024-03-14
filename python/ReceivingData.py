@@ -1,8 +1,8 @@
 import serial
-import os
 from datetime import datetime
-from csv_functions import show_data, save_data
-import personal_interface
+from csv_functions import save_data
+
+import python.interfaces.personal_interface as personal_interface
 
 
 # Configurar el puerto serie

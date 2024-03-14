@@ -1,7 +1,6 @@
 import csv
 import os
 
-
 def show_data(data_list):
     """
     Imprime los datos almacenados en la lista en formato de matriz.

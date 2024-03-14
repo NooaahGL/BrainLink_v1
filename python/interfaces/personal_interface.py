@@ -1,7 +1,6 @@
 import os
 import tkinter as tk
 from tkinter import simpledialog
-import pandas as pd
 from csv_functions import save_data
 
 folder_path = "D:\\OneDrive\\URV\\5º Curso\\TFG BrainLink\\BrainLink\\trainingData"
