@@ -15,9 +15,9 @@ class DataTypeWindow:
         self.selected_user = selected_user
 
         # Crear una nueva instancia de Tk para la ventana de datos
-        window = tk.Tk()
-        window.title("Selección de Datos")
-        window.geometry("400x300")
+        self.window = tk.Tk()
+        self.window.title("Selección de Datos")
+        self.window.geometry("400x300")
 
     # Función para manejar el evento de selección/deselección de los checkboxes
     def checkbox_callback(self):
@@ -32,6 +32,10 @@ class DataTypeWindow:
     def getDataType(self):
         return self.data_type
 
+    def exit(self):
+        global save
+        save = True
+        self.window.destroy()
 
     def create_window(self):
 
@@ -42,8 +46,10 @@ class DataTypeWindow:
             self.checkboxes.append(var)
 
         # Crear botón para salir
-        btn_salir = tk.Button(self.window, text="Salir", command=self.window.quit, height=2, width=20)
+        btn_salir = tk.Button(self.window, text="Salir", command=self.exit, height=2, width=20)
         btn_salir.pack(side=tk.BOTTOM)
 
         self.window.mainloop()
+        
+        return save
         

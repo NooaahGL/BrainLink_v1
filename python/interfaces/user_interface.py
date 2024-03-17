@@ -22,7 +22,6 @@ class UserWindow:
         self.lbl_usuario.pack(pady=10)
         
 
-
     def UI_actualizar_botones(self):
         global selected_user
         # Limpiar los botones anteriores
@@ -43,7 +42,7 @@ class UserWindow:
         frame_inferior.pack(side="bottom", fill="x")
 
         # Botón para crear un nuevo perfil
-        btn_nuevoPerfil = tk.Button(frame_inferior, text="Nuevo perfil", command=lambda: self.UI_create_new_profil(self), height=2, width=20)
+        btn_nuevoPerfil = tk.Button(frame_inferior, text="Nuevo perfil", command=self.UI_create_new_profil, height=2, width=20)
         btn_nuevoPerfil.pack(side="left", padx=5, pady=5)  # Alinear botón a la izquierda y agregar espacio
 
         # Botón para salir

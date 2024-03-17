@@ -1,5 +1,6 @@
 import csv
 import os
+import numpy as np
 
 def show_data(data_list):
     """
@@ -29,9 +30,7 @@ def verify_and_create(ruta_completa, file_name):
             # Utilizar csv.writer para crear el archivo CSV vacío
             escritor_csv = csv.writer(archivo_csv)
             print(f"El archivo CSV '{file_name}' no existe. Se ha creado un nuevo archivo CSV vacío en '{ruta_completa}'.")
-    #else:
-        # print(f"El archivo CSV '{file_name}' ya existe en '{file_name}'.")
-
+ 
 
 def save_data(folder_path, file_name, data_list):
     """
@@ -50,3 +49,16 @@ def save_data(folder_path, file_name, data_list):
             escritor_csv = csv.writer(archivo_csv)
             for row in data_list:
                 escritor_csv.writerow(row.split(','))  
+
+def save_procesed_data(folder_path, file_name, data_list):
+    ruta_completa = os.path.join(folder_path, file_name)
+    print("Ruta en save procesed Data: " + ruta_completa)
+
+    verify_and_create(ruta_completa, file_name)
+
+    if data_list:
+        with open(ruta_completa, 'a', newline='') as archivo_csv: # Modificado para abrir en modo de agregar ('a')
+            escritor_csv = csv.writer(archivo_csv)
+            # Guarda el array en un archivo CSV
+            
+            escritor_csv.writerows(data_list)

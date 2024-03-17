@@ -88,8 +88,16 @@ def recibir_datos():
             # Cerrar el puerto serie al finalizar
             ser.close()
             print("Puerto serie cerrado")
-
-            save_window = DI.SaveDataWindow(selected_user, procesed_data)
+        
+        except serial.SerialException as se:
+            print("Error en la comunicación serie:", se)
+            # Realiza acciones de manejo de errores según sea necesario, como cerrar el puerto serie o reiniciar la conexión.
+            continue
+        
+        except Exception as ex:
+            print("Ocurrió un error inesperado:", ex)
+            # Realiza acciones de manejo de errores según sea necesario.
+            continue
 
 print("-------Selección usuario-------")
 user_window = UI.UserWindow()
@@ -104,8 +112,15 @@ if selected_user:
 
     print("-------Selección tipo de datos-------")
     data_window = TI.DataTypeWindow(selected_user)
-    data_window.create_window()
+    save = data_window.create_window()
 
 else:
     print("No se ha seleccionado ningún usuario. Saliendo del programa.")
 
+if save:
+    print("Procedemos a guardar la información:")
+    save_window= DI.SaveDataWindow(selected_user, procesed_data)
+    save_window.create_window()
+
+else:
+    print("Datos no guardados. Saliendo del programa.")
