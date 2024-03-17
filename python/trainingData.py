@@ -5,6 +5,7 @@ import numpy as np
 
 import interfaces.training_interface as TI
 import interfaces.user_interface as UI
+import interfaces.saveData_interface as DI
 
 # Configurar el puerto serie
 ser = serial.Serial('COM5', 9600)  # Asegúrate de reemplazar 'COM5' con el puerto correcto
@@ -88,6 +89,8 @@ def recibir_datos():
             ser.close()
             print("Puerto serie cerrado")
 
+            save_window = DI.SaveDataWindow(selected_user, procesed_data)
+
 print("-------Selección usuario-------")
 user_window = UI.UserWindow()
 selected_user = user_window.user_window()
@@ -100,7 +103,7 @@ if selected_user:
     hilo_recepcion.start()
 
     print("-------Selección tipo de datos-------")
-    data_window = TI.DataTypeWindow()
+    data_window = TI.DataTypeWindow(selected_user)
     data_window.create_window()
 
 else:

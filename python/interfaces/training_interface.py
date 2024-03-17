@@ -1,15 +1,18 @@
 import tkinter as tk
 from tkinter import ttk
 
+
+
 class DataTypeWindow:
     
-    def __init__(self):
+    def __init__(self, selected_user):
         # Tipos de datos disponibles
         self.tipos_datos = ["Attention", "Meditation", "Delta"]
         # Crear checkboxes para los tipos de datos
         self.checkboxes = []
         # Selected datatype
         self.data_type = None
+        self.selected_user = selected_user
 
         # Crear una nueva instancia de Tk para la ventana de datos
         window = tk.Tk()
@@ -28,17 +31,9 @@ class DataTypeWindow:
                     
     def getDataType(self):
         return self.data_type
-    
-    def saveWindow(self):
-        if self.data_type:
-            save_window = SaveDataWindow(self.window, self.data_type)
-        else:
-            print("No se ha seleccionado ningún tipo de datos.")
-
 
 
     def create_window(self):
-
 
         for tipo in self.tipos_datos:
             var = tk.BooleanVar()
@@ -47,9 +42,8 @@ class DataTypeWindow:
             self.checkboxes.append(var)
 
         # Crear botón para salir
-        btn_salir = tk.Button(self.window, text="Salir", command=self.saveWindow, height=2, width=20)
+        btn_salir = tk.Button(self.window, text="Salir", command=self.window.quit, height=2, width=20)
         btn_salir.pack(side=tk.BOTTOM)
 
         self.window.mainloop()
         
-    
