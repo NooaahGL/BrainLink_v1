@@ -19,15 +19,17 @@ class DataTypeWindow:
         self.window.title("Selección de Datos")
         self.window.geometry("400x300")
 
+        # Crear un estilo personalizado para los Checkbuttons
+        self.style = ttk.Style()
+        self.style.configure('Checkbutton.TCheckbutton', font=('Arial', 10))  # Establecer tamaño de fuente
+
+
     # Función para manejar el evento de selección/deselección de los checkboxes
     def checkbox_callback(self):
         for i, tipo in enumerate(self.tipos_datos):
             if self.checkboxes[i].get():
                 if self.data_type != tipo:  # Solo actualiza selected si la selección cambia
-                    #print(f"Seleccionado: {tipo}")
                     self.data_type = tipo
-            #else:
-                #print(f"Deseleccionado: {tipo}")
                     
     def getDataType(self):
         return self.data_type
@@ -39,9 +41,13 @@ class DataTypeWindow:
 
     def create_window(self):
 
+        # Texto principal: este no sale 
+        self.lbl_usuario = tk.Label(self.window, text="Selecciona el tipo de datos que se están registrando:", font=("Arial", 12))
+        self.lbl_usuario.pack(pady=10)
+
         for tipo in self.tipos_datos:
             var = tk.BooleanVar()
-            checkbox = ttk.Checkbutton(self.window, text=tipo, variable=var, command=self.checkbox_callback)
+            checkbox = ttk.Checkbutton(self.window, text=tipo, variable=var, command=self.checkbox_callback, padding=(10, 10),style='Checkbutton.TCheckbutton')
             checkbox.pack(anchor=tk.W)
             self.checkboxes.append(var)
 

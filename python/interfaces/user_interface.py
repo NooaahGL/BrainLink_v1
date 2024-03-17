@@ -17,10 +17,6 @@ class UserWindow:
         self.window.title("Selector usuario")
         self.window.geometry("500x400")
 
-        # Texto principal: este no sale 
-        self.lbl_usuario = tk.Label(self.window, text="¿Qué usuario está trabajando?", font=("Arial", 12))
-        self.lbl_usuario.pack(pady=10)
-        
 
     def UI_actualizar_botones(self):
         global selected_user
@@ -31,6 +27,10 @@ class UserWindow:
         # Obtener lista de archivos CSV en la carpeta deseada
         archivos_csv = [archivo for archivo in os.listdir(self.folder_path) if archivo.endswith('.csv')]
 
+        # Texto principal
+        self.lbl_usuario = tk.Label(self.window, text="¿Qué usuario está trabajando?", font=("Arial", 12))
+        self.lbl_usuario.pack(pady=10)
+        
         # Crear botones para cada archivo CSV
         for file_name in archivos_csv:
             name=file_name.replace(".csv", "")

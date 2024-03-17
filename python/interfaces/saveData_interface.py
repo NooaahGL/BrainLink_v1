@@ -10,7 +10,7 @@ class SaveDataWindow:
 
         self.window = tk.Tk()
         self.window.title("Guardar Datos")
-        self.window.geometry("300x200")
+        self.window.geometry("300x100")
 
         self.file_name = file_name
         self.data = data
@@ -22,11 +22,21 @@ class SaveDataWindow:
         self.lbl_data_type = tk.Label(self.window, text="Se guardarán los datos del usuario: " + self.file_name)
         self.lbl_data_type.pack(pady=10)
 
-        self.btn_guardar = tk.Button(self.window, text="Guardar", command=self.DI_cargar_archivo)
-        self.btn_guardar.pack(pady=10)
+        # Contenedor para los botones inferior
+        frame_inferior = tk.Frame(self.window)
+        frame_inferior.pack(side="bottom", fill="x")
+
+        self.btn_guardar = tk.Button(frame_inferior, text="Guardar", command=self.DI_cargar_archivo)
+        self.btn_guardar.pack(side="left", padx=30, pady=10)
+
+        self.btn_no_guardar = tk.Button(frame_inferior, text="No guardar", command=self.no_guardar_archivo)
+        self.btn_no_guardar.pack(side="right", padx=30, pady=10)
 
         self.window.mainloop()
 
+    def no_guardar_archivo(self):
+        print("Datos no guardados.")
+        self.window.destroy()
 
     def DI_cargar_archivo(self):
         
