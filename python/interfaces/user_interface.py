@@ -46,9 +46,14 @@ class UserWindow:
         btn_nuevoPerfil.pack(side="left", padx=5, pady=5)  # Alinear botón a la izquierda y agregar espacio
 
         # Botón para salir
-        btn_salir = tk.Button(frame_inferior, text="Salir", command=self.window.quit, height=2, width=20)
+        btn_salir = tk.Button(frame_inferior, text="Salir", command=self.exit, height=2, width=20)
         btn_salir.pack(side="right", padx=5, pady=5)  # Alinear botón a la derecha y agregar espacio
 
+    def exit(self):
+        global selected_user
+        self.window.destroy()
+        selected_user = None
+    
 
     def UI_create_new_profil(self):
         # Esta función se activará al hacer clic en el botón de "nuevo perfil"
@@ -70,6 +75,8 @@ class UserWindow:
         self.window.destroy()
 
     def user_window(self):
+        global selected_user
+        selected_user = None
 
         # Etiqueta para solicitar el nombre del usuario
         lbl_usuario = tk.Label(self.window, text="¿Qué usuario está trabajando?", font=("Arial", 12))

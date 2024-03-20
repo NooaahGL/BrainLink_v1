@@ -34,7 +34,7 @@ def process_data(array):
     if (counter > 3): #and (array[0] != 200):
 
         # Seleccionar los elementos del 1 al 3 [timestamp, attention, meditation, delta]
-        calibrated_values = array[1:4]
+        calibrated_values = array[1:9]
         
         #dataType = data_window.data_type
         calibrated_values = np.append([timestamp, data_window.data_type], calibrated_values)
@@ -102,9 +102,11 @@ def recibir_datos():
 print("-------Selección usuario-------")
 user_window = UI.UserWindow()
 selected_user = user_window.user_window()
-print("Usuario seleccionado: ", selected_user)
+save = False
 
 if selected_user:
+    print("Usuario seleccionado: ", selected_user)
+
     # Crear un hilo para recibir los datos en segundo plano
     hilo_recepcion = threading.Thread(target=recibir_datos)
     hilo_recepcion.daemon = True  # El hilo se detendrá cuando se cierre el programa principal
