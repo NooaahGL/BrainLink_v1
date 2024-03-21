@@ -34,7 +34,7 @@ class UserWindow:
         # Crear botones para cada archivo CSV
         for file_name in archivos_csv:
             name=file_name.replace(".csv", "")
-            btn_cargar = tk.Button(self.window, text=name, command=lambda archivo=file_name: self.on_button_click(name), height=2, width=20)
+            btn_cargar = tk.Button(self.window, text=name, command=lambda name=name: self.on_button_click(name), height=2, width=20)
             btn_cargar.pack()
 
         # Contenedor para los botones inferior

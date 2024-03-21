@@ -7,7 +7,7 @@ class DataTypeWindow:
     
     def __init__(self, selected_user):
         # Tipos de datos disponibles
-        self.tipos_datos = ["Calibration", "Memory1", "Memory2", "UP", "DOWN", "Segundito"]
+        self.tipos_datos = ["Calibration", "Meditation", "Memory1", "Memory2", "UP", "DOWN", "Segundito"]
         # Crear checkboxes para los tipos de datos
         self.checkboxes = []
         # Selected datatype

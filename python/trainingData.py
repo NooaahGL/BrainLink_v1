@@ -31,7 +31,7 @@ def process_data(array):
     timestamp = int(time.time())
 
     #filtrar los primeros 4 valores como valores de calibrado y que la señal sea mayor de 200
-    if (counter > 3): #and (array[0] != 200):
+    if (counter > 3) and (array[0] != 200):
 
         # Seleccionar los elementos del 1 al 3 [timestamp, attention, meditation, delta]
         calibrated_values = array[1:9]
