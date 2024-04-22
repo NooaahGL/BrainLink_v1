@@ -62,3 +62,17 @@ def save_procesed_data(folder_path, file_name, data_list):
             # Guarda el array en un archivo CSV
             
             escritor_csv.writerows(data_list)
+
+def append_data(folder_path, file_name, data_list):
+    ruta_completa = os.path.join(folder_path, file_name)
+    print("Ruta en save procesed Data: " + ruta_completa)
+
+    with open(ruta_completa, 'a', newline='') as archivo_csv: # Modificado para abrir en modo de agregar ('a')
+        escritor_csv = csv.writer(archivo_csv)
+        # Guarda el array en un archivo CSV
+
+        print (data_list)
+        print ("Informacion guardada")
+        # Guarda el array en un archivo CSV
+        for data in data_list:
+            escritor_csv.writerows(data)
